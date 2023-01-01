@@ -13,4 +13,4 @@ WORKDIR /var/task/image-classifier
 
 COPY . .
 
-ENTRYPOINT ["python3", "/var/task/image-classifier/inference.py"]
+CMD ["inference.handler"]
