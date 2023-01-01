@@ -39,8 +39,8 @@ sudo pip install dlr
 3) 추론을 위한 파일들을 다운로드 합니다. 
 
 ```java
-git clone https://github.com/kyopark2014/image-classification-via-iot-greengrass
-cd image-classification-via-iot-greengrass/dlr-inference/
+git clone https://github.com/kyopark2014/image-classification-model
+cd image-classification-model/dlr-inference/
 ```
 
 4) 아래와 같이 추론을 수행합니다.
