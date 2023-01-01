@@ -16,3 +16,5 @@ RESNET-50를 사용하는 AWS의 [DLR(Deep Learning Runtime)](https://docs.aws.a
  ## Reference 
 
 [Github: neo-ai-dlr](https://github.com/neo-ai/neo-ai-dlr)
+
+[DLR image classification model store](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-image-classification-model-store-component.html)
