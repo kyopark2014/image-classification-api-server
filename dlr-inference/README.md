@@ -11,7 +11,7 @@
 
 #### Ubuntu 18.4
 
-Ubuntu인 경우에 아래와 같은 라이브러리를 설치합니다. OpenCV은 gluoncv 또는 opencv-python을 설치하면 됩니다.
+Ubuntu인 경우에 아래와 같은 라이브러리를 설치합니다. OpenCV은 gluoncv 또는 opencv-python을 설치하면 됩니다. [opencv-python 4.7.0.68](https://github.com/opencv/opencv-python/issues/765) 버그때문에 아래처럼 4.6.0.66을 사용합니다. (2023-01-01)
 
 ```java
 sudo apt-get install libgl1 -y
