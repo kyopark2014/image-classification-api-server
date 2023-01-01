@@ -1,6 +1,7 @@
-# DLR을 이용한 이미지 분류 추론
+# 이미지 분류 추론
 
-[DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론을 수행하고자 합니다. 
+[DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론하는 동작을 설명합니다.
+
 
 ## Cloud9을 이용하여 추론 동작 확인하기 
 
