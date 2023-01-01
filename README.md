@@ -1,11 +1,19 @@
 # Image Classification Model
 
-RESNET-50에 이용해 이미지 분류하는 DLR 이미지 분류 모델에 대해설명합니다.
+RESNET-50를 사용하는 AWS의 [DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론을 수행하고자 합니다. 
 
 
-# DLR을 이용한 이미지 분류 추론
 
-[DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론을 수행하고자 합니다. 
+## RESNET-50
+
+### Demos
+
+- [GluonCV ResNet50 Classifier Demo](https://aws.amazon.com/marketplace/ai/model-evaluation?productId=587dc453-b6d6-487e-abc4-133b4bd3a0ed)
+
+- [RESNET-50 Demo](https://aws.amazon.com/marketplace/ai/model-evaluation?productId=cc879d3b-e759-4270-9afb-ceb50d2f7fe6)
+
+ 
+ 
 
 ## Cloud9을 이용하여 추론 동작 확인하기 
 
@@ -77,6 +85,7 @@ result: {'Label': 'plastic bag', 'Score': '4.5193176'}
 태스트에 사용한 이미지는 아래와 같습니다.
 
 <img src="https://user-images.githubusercontent.com/52392004/209852850-4f3792e8-2423-4689-83ed-3b98881616d7.png" width="400">
+
 
 
 ## Container로 빌드하여 테스트하기
