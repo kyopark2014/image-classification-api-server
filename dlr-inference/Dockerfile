@@ -8,10 +8,8 @@ RUN yum install libglvnd-glx -y
 RUN python -m pip install dlr
 RUN pip3 install dlr==1.6.0
 
-WORKDIR /var/task/dlr
+WORKDIR /var/task/image-classifier
 
 COPY . .
 
-#RUN pip install -r requirements.txt
-
-ENTRYPOINT ["python3", "/var/task/dlr/main-test.py"]
+ENTRYPOINT ["python3", "/var/task/image-classifier/inference.py"]

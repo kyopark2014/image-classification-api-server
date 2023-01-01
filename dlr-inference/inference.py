@@ -64,4 +64,8 @@ def handler(event, context):
         }   
     else:
         logger.error("Unable to capture an image using camera")
-        exit(1)
+
+        return {
+            'statusCode': 500,
+            'body': 'Not a normal image.'
+        }  
