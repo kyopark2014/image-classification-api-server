@@ -17,7 +17,9 @@ Ubuntu인 경우에 아래와 같은 라이브러리를 설치합니다. OpenCV�
 sudo apt-get install libgl1 -y
 
 pip3 install --upgrade pip
-pip3 install scikit-build wheel gluoncv dlr
+pip3 install scikit-build wheel 
+pip3 install opencv-python==4.6.0.66 
+pip3 install dlr
 
 pip install dlr 
 ```
@@ -31,7 +33,9 @@ sudo yum update -y
 sudo yum install libglvnd-glx -y
 
 pip3 install --upgrade pip
-pip3 install scikit-build wheel gluoncv dlr
+pip3 install scikit-build wheel 
+pip3 install opencv-python==4.6.0.66 
+pip3 install dlr
 
 sudo pip install dlr
 ```
