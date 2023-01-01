@@ -16,6 +16,4 @@ WORKDIR /var/task/dlr
 
 COPY . .
 
-#RUN pip install -r requirements.txt
-
-ENTRYPOINT ["python3", "/var/task/dlr/main-test.py"]
+ENTRYPOINT ["python3", "/var/task/image-classifier/inference.py"]

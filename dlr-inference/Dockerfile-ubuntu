@@ -14,4 +14,4 @@ WORKDIR /var/task/dlr
 
 COPY . .
 
-ENTRYPOINT ["python3", "/var/task/dlr/interface.py"]
+ENTRYPOINT ["python3", "/var/task/image-classifier/inference.py"]
