@@ -1,0 +1,17 @@
+FROM ubuntu:18.04 as base	
+
+RUN apt-get update
+RUN apt-get install libgl1 -y
+RUN apt-get install python-pip -y
+RUN apt-get install python3-pip -y
+
+RUN pip3 install --upgrade pip
+RUN pip3 install scikit-build wheel gluoncv dlr
+RUN python -m pip install dlr 
+RUN python -m pip install joblib awsiotsdk pandas
+
+WORKDIR /var/task/dlr
+
+COPY . .
+
+ENTRYPOINT ["python3", "/var/task/dlr/interface.py"]
