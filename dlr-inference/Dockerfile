@@ -13,4 +13,4 @@ WORKDIR /var/task/image-classifier
 
 COPY . .
 
-CMD ["inference_test.main"]
+CMD ["classifier.handler"]
