@@ -17,4 +17,4 @@ COPY inference-test.py /var/task/
 
 COPY . .
 
-CMD ["inference-test.main"]
+ENTRYPOINT ["python3 -u", "/var/task/image-classifier/inference-test.py"]
