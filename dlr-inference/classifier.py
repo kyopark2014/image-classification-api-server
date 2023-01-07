@@ -6,10 +6,6 @@ import os
 import traceback
 import inference
 
-import dlr
-from dlr.counter.phone_home import PhoneHome                             
-PhoneHome.disable_feature()   
-
 logger = getLogger()
 logger.setLevel(INFO)
 #logging_handler = StreamHandler(stdout)
