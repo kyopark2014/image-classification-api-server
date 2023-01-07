@@ -11,7 +11,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
     // Create Lambda for image classification
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-api", {
       description: 'lambda function for image classification',
-      functionName: 'ML-XGBoost',
+      functionName: 'lambda-api-server-for-image-classification',
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../dlr-inference')),
       timeout: cdk.Duration.seconds(30),
     }); 
