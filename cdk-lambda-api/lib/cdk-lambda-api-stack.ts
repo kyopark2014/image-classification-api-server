@@ -12,6 +12,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-api", {
       description: 'lambda function for image classification',
       functionName: 'lambda-api-server-for-image-classification',
+      memorySize: 512,
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../dlr-inference')),
       timeout: cdk.Duration.seconds(30),
     }); 
