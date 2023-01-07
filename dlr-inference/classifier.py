@@ -6,11 +6,6 @@ import os
 import traceback
 import inference
 
-logger = getLogger()
-logger.setLevel(INFO)
-#logging_handler = StreamHandler(stdout)
-#logger.addHandler(logging_handler)
-
 IMAGE_DIR = f'{os.getcwd()}/images'
 print('IMAGE_DIR:', IMAGE_DIR)
 
@@ -34,9 +29,7 @@ def load_image(image_path):
         try:
             image_data = imread(image_path)
         except Exception as e:
-            logger.error(
-                "Unable to read the image at: {}. Error: {}".format(image_path, e)
-            )
+            print("Unable to read the image: ", e)
             exit(1)
     elif img_lower.endswith(
         ".npy",
@@ -44,7 +37,7 @@ def load_image(image_path):
     ):
         image_data = load(image_path)
     else:
-        logger.error("Images of format jpg,jpeg,png and npy are only supported.")
+        print("Images of format jpg,jpeg,png and npy are only supported.")
         exit(1)
     return image_data
 
@@ -63,7 +56,7 @@ def handler(fname):
         traceback.print_exc()
         
 def run(event, context):
-    logger.debug('event: %s', event)
+    print(f'event: ', event)
 
     fname = 'cat.jpeg'
     label = handler(fname)
