@@ -13,7 +13,8 @@ WORKDIR /var/task/image-classifier
 
 COPY classifier.py /var/task/
 COPY inference.py /var/task/
+COPY inference-test.py /var/task/
 
 COPY . .
 
-CMD ["classifier.run"]
+CMD ["inference-test.main"]
