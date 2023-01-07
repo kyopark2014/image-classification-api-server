@@ -53,7 +53,7 @@ def load_image(image_path):
     return image_data
 
 
-def classifier(fname):
+def run_classifier(fname):
     image_data = load_image(os.path.join(IMAGE_DIR, fname))
     
     event = {
@@ -70,6 +70,10 @@ def handler(event, context):
     logger.debug('event: %s', event)
 
     fname = 'cat.jpeg'
-    label = classifier(fname)
+    label = run_classifier(fname)
     print(fname + " -> "+ label)
     
+    return {
+        'statusCode': 200,
+        'label': label
+    }  
