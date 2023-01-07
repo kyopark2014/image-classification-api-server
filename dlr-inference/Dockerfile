@@ -11,6 +11,7 @@ RUN pip3 install dlr==1.6.0
 
 WORKDIR /var/task/image-classifier
 
+COPY classifier.py /var/task/
 COPY . .
 
-CMD ["inference.handler"]
+CMD ["classifier.handler"]
