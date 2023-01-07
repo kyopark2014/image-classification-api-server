@@ -4,7 +4,7 @@ from cv2 import imread
 from numpy import load
 import os
 import traceback
-import inference  
+from inference import handler   
 
 import dlr
 from dlr.counter.phone_home import PhoneHome                             
@@ -61,12 +61,12 @@ def run_classifier(fname):
     }
 
     try:
-        result = inference.handler(event,"")          
+        result = handler(event,"")          
         return result['body'][0]['Label']
     except:
         traceback.print_exc()
         
-def handler(event, context):
+def run(event, context):
     logger.debug('event: %s', event)
 
     fname = 'cat.jpeg'

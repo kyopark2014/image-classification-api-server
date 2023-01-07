@@ -16,4 +16,4 @@ COPY inference.py /var/task/
 
 COPY . .
 
-CMD ["classifier.handler"]
+CMD ["classifier.run"]
