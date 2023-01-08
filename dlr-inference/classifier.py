@@ -66,7 +66,7 @@ def run(event, context):
     nparr = np.fromstring(data, np.uint8)
 
     # decode image
-    img = cv2.imdecode(nparr, cv2.imread.IMREAD_COLOR)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
     print('img: ', img)
 
