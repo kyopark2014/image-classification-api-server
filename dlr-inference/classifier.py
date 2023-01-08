@@ -63,15 +63,13 @@ def run(event, context):
     data = event['body-json']
 
     # convert string of image data to uint8
-    nparr = np.fromstring(data, np.uint8)
-    print('data: ', data)
-
-    print('nparr: ', nparr)
+    encoded_img = np.fromstring(data, dtype = np.uint8)
+    print('nparr: ', encoded_img)
 
     # decode image
-    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
+    img = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
     print('img: ', img)
+
 
     fname = 'cat.jpeg'
     label = handler(fname)
