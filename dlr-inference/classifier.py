@@ -43,13 +43,12 @@ def load_image(image_path):
     return image_data
 
 
-def handler(fname):
+def classifier_from_path(fname):
     image_data = load_image(os.path.join(IMAGE_DIR, fname))
     
     event = {
         'body': image_data
     }
-
     print('image_data: ', image_data)
 
     try:
@@ -57,32 +56,37 @@ def handler(fname):
         return result['body'][0]['Label']
     except:
         traceback.print_exc()
-        
-def run(event, context):
-    print('event: ', event)
 
-    data = base64.b64decode(event['body-json'])
-
+def classifier_from_uploaded(data):
     # convert string of image data to uint8
     encoded_img = np.fromstring(data, dtype = np.uint8)
-    print('encoded_img: ', encoded_img)
+    #print('encoded_img: ', encoded_img)
 
     # decode image
-    img_data = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
-    print('img: ', img)
+    image_data = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
+    #print('img: ', img_data)
 
-    event_data = {
-        'body': img_data
+    event = {
+        'body': image_data
     }
 
     try:
-        result = inference.handler(event_data,"")          
-        label = result['body'][0]['Label']
+        result = inference.handler(event,"")          
+        return result['body'][0]['Label']
     except:
         traceback.print_exc()
 
+def run(event, context):
+    print('event: ', event)
+
+    # from uploaded image
+    data = base64.b64decode(event['body-json'])
+    label = classifier_from_uploaded(data)
+    print("label: "+ label)
+    
+    # from internal file
     #fname = 'cat.jpeg'
-    #label = handler(fname)
+    #label = classifier_from_path(fname)
     #print(fname + " -> "+ label)
     
     return {
