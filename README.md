@@ -1,4 +1,4 @@
-# 이미지 분류를 위한 API 서버 만들기 
+# 머신러닝(ML) 기반의 이미지 분류를 위한 API 서버 만들기 
 
 RESNET-50를 사용하는 AWS의 [DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론을 수행하고자 합니다. 
 
