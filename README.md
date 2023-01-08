@@ -58,6 +58,16 @@ CMD ["classifier.run"]
 
 ## Result
 
+
+인프라 설치는 아래와 같이 수행합니다.
+
+```java
+git clone https://github.com/kyopark2014/image-classification-api-server
+cd cdk-lambda-api
+npm install aws-cdk-lib
+cdk deploy
+```
+
 Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 - Content-Type으로 "image/jpeg"을 입력합니다. 
