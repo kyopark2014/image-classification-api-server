@@ -61,7 +61,7 @@ def handler(fname):
 def run(event, context):
     print('event: ', event)
 
-    data = base64.event['body-json']
+    data = base64.b64decode(event['body-json'])
 
     # convert string of image data to uint8
     encoded_img = np.fromstring(data, dtype = np.uint8)
