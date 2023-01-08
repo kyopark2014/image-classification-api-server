@@ -95,31 +95,33 @@ Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 ## 결과 예제
 
-![true-pororo-cub](https://user-images.githubusercontent.com/52392004/211223960-a99aec04-ea3b-47ae-b6de-07200a0d7e31.jpeg)
+- "label": "cup"
 
-"label": "cup"
-
-
-
-![true-cups](https://user-images.githubusercontent.com/52392004/211223986-2650ab6f-2b9f-4d02-b278-3ad149b6c5bf.jpeg)
-
-"label": "coffee mug"
+<img src="https://user-images.githubusercontent.com/52392004/211223960-a99aec04-ea3b-47ae-b6de-07200a0d7e31.jpe" width="800">
 
 
 
-![false-starbucks-cub2](https://user-images.githubusercontent.com/52392004/211224017-39facb8e-24f2-42c6-8bbb-88fa160031dd.jpeg)
+- "label": "coffee mug"
 
-"label": "ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin"
-
-
-![true_car](https://user-images.githubusercontent.com/52392004/211224064-7fa64af5-1924-4b73-b312-fdc1ba972c42.jpeg)
-
-"label": "sports car, sport car"
+<img src="https://user-images.githubusercontent.com/52392004/211223986-2650ab6f-2b9f-4d02-b278-3ad149b6c5bf.jpeg" width="800">
 
 
-![false_dron](https://user-images.githubusercontent.com/52392004/211224133-bdaf1a6c-af2a-4db9-a461-3c73f13ec62f.jpeg)
 
-"label": "crash helmet"
+- "label": "ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin"
+
+<img src="https://user-images.githubusercontent.com/52392004/211224017-39facb8e-24f2-42c6-8bbb-88fa160031dd.jpeg" width="800">
+
+
+
+- "label": "sports car, sport car"
+
+<img src="https://user-images.githubusercontent.com/52392004/211224064-7fa64af5-1924-4b73-b312-fdc1ba972c42.jpeg" width="800">
+
+
+
+- "label": "crash helmet"
+
+<img src="https://user-images.githubusercontent.com/52392004/211224133-bdaf1a6c-af2a-4db9-a461-3c73f13ec62f.jpeg" width="800">
 
 ## RESNET-50
 
