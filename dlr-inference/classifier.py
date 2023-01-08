@@ -1,7 +1,7 @@
 from logging import INFO, StreamHandler, getLogger
 from sys import stdout
 import cv2
-from numpy import np
+import numpy as np
 import os
 import traceback
 import inference
