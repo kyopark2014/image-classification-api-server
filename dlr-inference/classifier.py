@@ -64,7 +64,8 @@ def run(event, context):
 
     # convert string of image data to uint8
     #encoded_img = np.fromstring(data, dtype = np.uint8)
-    encoded_img = np.asarray(bytearray(data), dtype=np.uint8)
+    #encoded_img = np.asarray(bytearray(data), dtype=np.uint8)
+    encoded_img = np.frombuffer(data, dtype = np.uint8)
     print('encoded_img: ', encoded_img)
 
     # decode image
