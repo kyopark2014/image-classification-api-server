@@ -97,7 +97,7 @@ Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 - "label": "cup"
 
-<img src="https://user-images.githubusercontent.com/52392004/211224277-40571e68-aad7-4923-b18b-99745b3733c5.jpeg" width="800">
+<img src="https://user-images.githubusercontent.com/52392004/211224277-40571e68-aad7-4923-b18b-99745b3733c5.jpeg" width="400">
 
 
 - "label": "coffee mug"
@@ -108,7 +108,7 @@ Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 - "label": "ashcan, trash can, garbage can, wastebin, ash bin, ash-bin, ashbin, dustbin, trash barrel, trash bin"
 
-<img src="https://user-images.githubusercontent.com/52392004/211224017-39facb8e-24f2-42c6-8bbb-88fa160031dd.jpeg" width="800">
+<img src="https://user-images.githubusercontent.com/52392004/211224017-39facb8e-24f2-42c6-8bbb-88fa160031dd.jpeg" width="400">
 
 
 
