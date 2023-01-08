@@ -1,7 +1,7 @@
 from logging import INFO, StreamHandler, getLogger
 from sys import stdout
-from cv2 import imread
-from numpy import load
+import cv2
+from numpy import np
 import os
 import traceback
 import inference
@@ -27,7 +27,7 @@ def load_image(image_path):
         )
     ):
         try:
-            image_data = imread(image_path)
+            image_data = cv2.imread(image_path)
         except Exception as e:
             print("Unable to read the image: ", e)
             exit(1)
@@ -35,7 +35,7 @@ def load_image(image_path):
         ".npy",
         -4,
     ):
-        image_data = load(image_path)
+        image_data = np.load(image_path)
     else:
         print("Images of format jpg,jpeg,png and npy are only supported.")
         exit(1)
@@ -49,6 +49,8 @@ def handler(fname):
         'body': image_data
     }
 
+    print('image_data: ', image_data)
+
     try:
         result = inference.handler(event,"")          
         return result['body'][0]['Label']
@@ -56,7 +58,17 @@ def handler(fname):
         traceback.print_exc()
         
 def run(event, context):
-    print(f'event: ', event)
+    print('event: ', event)
+
+    data = event['body-json']
+
+    # convert string of image data to uint8
+    nparr = np.fromstring(data, np.uint8)
+
+    # decode image
+    img = cv2.imdecode(nparr, cv2.imread.IMREAD_COLOR)
+
+    print('img: ', img)
 
     fname = 'cat.jpeg'
     label = handler(fname)
