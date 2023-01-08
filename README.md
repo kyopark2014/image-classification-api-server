@@ -97,8 +97,7 @@ Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 - "label": "cup"
 
-<img src="https://user-images.githubusercontent.com/52392004/211223960-a99aec04-ea3b-47ae-b6de-07200a0d7e31.jpe" width="800">
-
+<img src="https://user-images.githubusercontent.com/52392004/211224277-40571e68-aad7-4923-b18b-99745b3733c5.jpeg" width="800">
 
 
 - "label": "coffee mug"
