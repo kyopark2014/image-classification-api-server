@@ -29,14 +29,22 @@ traceback.print_exc()
 
 ## Result
 
-아래와 
-아래와 같이 
+아래와 같은 이미지를 업로드시 아래와 같은 결과를 얻습니다. 
 
 ![dog](https://user-images.githubusercontent.com/52392004/211182490-fa9f59ff-4435-407d-b877-d1399132a0ce.jpg)
 
+Postman에서 업로드시 아래와 같이 수행합니다.
 
-실제 결과는 아래와 같습니다. 
+- Content-Type으로 "image/jpeg"을 입력합니다. 
 
+![image](https://user-images.githubusercontent.com/52392004/211182527-c86878bb-a7be-47a9-93c2-4613924912bc.png)
+
+- body에서 파일을 선택합니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/211182507-0cf39f97-40c7-41e7-9c76-0b0f3d5baabd.png)
+
+
+이때의 결과는 아래와 같습니다. 
 
 ```java
 {
