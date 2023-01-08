@@ -63,8 +63,9 @@ def run(event, context):
     data = event['body-json']
 
     # convert string of image data to uint8
-    encoded_img = np.fromstring(data, dtype = np.uint8)
-    print('nparr: ', encoded_img)
+    #encoded_img = np.fromstring(data, dtype = np.uint8)
+    encoded_img = np.asarray(bytearray(data), dtype=np.uint8)
+    print('encoded_img: ', encoded_img)
 
     # decode image
     img = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
