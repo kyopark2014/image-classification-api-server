@@ -34,8 +34,8 @@ export class CdkLambdaApiStack extends cdk.Stack {
     });
     logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
-    const api = new apiGateway.RestApi(this, 'api-storytime', {
-      description: 'API Gateway',
+    const api = new apiGateway.RestApi(this, 'image-classification-api-server', {
+      description: 'API Gateway for image classification',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
       binaryMediaTypes: ['*/*'],
       deployOptions: {
@@ -109,7 +109,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
       "image/png" : templateString
     }
     
-    const upload = api.root.addResource('upload');
+    const upload = api.root.addResource('classifier');
     upload.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
