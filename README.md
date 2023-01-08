@@ -58,11 +58,7 @@ CMD ["classifier.run"]
 
 ## Result
 
-아래와 같은 이미지를 업로드시 아래와 같은 결과를 얻습니다. 
-
-![dog](https://user-images.githubusercontent.com/52392004/211182490-fa9f59ff-4435-407d-b877-d1399132a0ce.jpg)
-
-Postman에서 업로드시 아래와 같이 수행합니다.
+Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
 - Content-Type으로 "image/jpeg"을 입력합니다. 
 
@@ -71,6 +67,11 @@ Postman에서 업로드시 아래와 같이 수행합니다.
 - body에서 파일을 선택합니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/211182507-0cf39f97-40c7-41e7-9c76-0b0f3d5baabd.png)
+
+
+아래와 같은 이미지를 업로드합니다. 
+
+![dog](https://user-images.githubusercontent.com/52392004/211182490-fa9f59ff-4435-407d-b877-d1399132a0ce.jpg)
 
 
 이때의 결과는 아래와 같습니다. 
