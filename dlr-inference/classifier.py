@@ -5,6 +5,7 @@ import numpy as np
 import os
 import traceback
 import inference
+import base64
 
 IMAGE_DIR = f'{os.getcwd()}/images'
 print('IMAGE_DIR:', IMAGE_DIR)
@@ -60,12 +61,12 @@ def handler(fname):
 def run(event, context):
     print('event: ', event)
 
-    data = event['body-json']
+    data = base64.event['body-json']
 
     # convert string of image data to uint8
-    #encoded_img = np.fromstring(data, dtype = np.uint8)
+    encoded_img = np.fromstring(data, dtype = np.uint8)
     #encoded_img = np.asarray(bytearray(data), dtype=np.uint8)
-    encoded_img = np.frombuffer(data, dtype = np.uint8)
+    #encoded_img = np.frombuffer(data, dtype = np.uint8)
     print('encoded_img: ', encoded_img)
 
     # decode image
