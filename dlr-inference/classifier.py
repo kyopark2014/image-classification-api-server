@@ -64,6 +64,9 @@ def run(event, context):
 
     # convert string of image data to uint8
     nparr = np.fromstring(data, np.uint8)
+    print('data: ', data)
+
+    print('nparr: ', nparr)
 
     # decode image
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
