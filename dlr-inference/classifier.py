@@ -65,18 +65,25 @@ def run(event, context):
 
     # convert string of image data to uint8
     encoded_img = np.fromstring(data, dtype = np.uint8)
-    #encoded_img = np.asarray(bytearray(data), dtype=np.uint8)
-    #encoded_img = np.frombuffer(data, dtype = np.uint8)
     print('encoded_img: ', encoded_img)
 
     # decode image
-    img = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
+    img_data = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
     print('img: ', img)
 
+    event_data = {
+        'body': img_data
+    }
 
-    fname = 'cat.jpeg'
-    label = handler(fname)
-    print(fname + " -> "+ label)
+    try:
+        result = inference.handler(event_data,"")          
+        label = result['body'][0]['Label']
+    except:
+        traceback.print_exc()
+
+    #fname = 'cat.jpeg'
+    #label = handler(fname)
+    #print(fname + " -> "+ label)
     
     return {
         'statusCode': 200,
