@@ -2,6 +2,11 @@
 
 RESNET-50를 사용하는 AWS의 [DLR(Deep Learning Runtime)](https://docs.aws.amazon.com/greengrass/v2/developerguide/dlr-component.html) 이미지 분류 모델을 이용하여 추론을 수행하고자 합니다. 
 
+전체적인 Architecture는 아래와 같습니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/211182721-dda19b7e-47b6-4b41-909d-212041f67907.png)
+
+
 ## Image Classification
 
 event의 "body-json"으로 들어온 upload된 이미지를 base64로 encoding후 UTF8로 decoding하여 이미지 데이터를 추출 합니다. 
