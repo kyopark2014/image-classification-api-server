@@ -1,11 +1,8 @@
-from logging import INFO, StreamHandler, getLogger
-from sys import stdout
 import cv2
 import numpy as np
 import os
 import traceback
 import inference
-import base64
 
 IMAGE_DIR = f'{os.getcwd()}/images'
 print('IMAGE_DIR:', IMAGE_DIR)
@@ -57,37 +54,13 @@ def classifier_from_path(fname):
     except:
         traceback.print_exc()
 
-def classifier_from_uploaded(data):
-    # convert string of image data to uint8
-    encoded_img = np.fromstring(data, dtype = np.uint8)
-    #print('encoded_img: ', encoded_img)
-
-    # decode image
-    image_data = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
-    #print('img: ', img_data)
-
-    event = {
-        'body': image_data
-    }
-
-    try:
-        result = inference.handler(event,"")          
-        return result['body'][0]['Label']
-    except:
-        traceback.print_exc()
-
 def run(event, context):
     print('event: ', event)
 
-    # from uploaded image
-    data = base64.b64decode(event['body-json'])
-    label = classifier_from_uploaded(data)
-    print("label: "+ label)
-    
     # from internal file
-    #fname = 'cat.jpeg'
-    #label = classifier_from_path(fname)
-    #print(fname + " -> "+ label)
+    fname = 'cat.jpeg'
+    label = classifier_from_path(fname)
+    print(fname + " -> "+ label)
     
     return {
         'statusCode': 200,
