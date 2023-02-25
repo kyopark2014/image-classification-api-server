@@ -70,12 +70,11 @@ cdk deploy
 
 ![image](https://user-images.githubusercontent.com/52392004/221360112-bdb0e611-9971-4443-ac41-33ceefe8bee6.png)
 
-여기서 ApiGatewayUrl의 주소는 "https://f8wr4q0nlj.execute-api.ap-northeast-2.amazonaws.com/dev/classifier"와 같고 Web으로 접속할 주소는 " ttps://d1twzjcpb87z2n.cloudfront.net/classifier.html
-CdkLambdaApiStack.UpdateCommend = aws s3 cp ./html/classifier.html s3://cdklambdaapistack-storage8d9329be-1pn0nfyzd384i
-CdkLambdaApiStack.imageclassificationapiserverEndpoint327C29FB = https://f8wr4q0nlj.execute-api.ap-northeast-2.amazonaws.com/dev/
-Stack ARN:
+여기서 ApiGatewayUrl의 주소는 "https://f8wr4q0nlj.execute-api.ap-northeast-2.amazonaws.com/dev/classifier" 와 같고 Web으로 접속할 주소는 "https://d1twzjcpb87z2n.cloudfront.net/classifier.html"임을 알 수 있습니다.
 
 ### Web에서 시험하기
+
+아래와 같이 Web으로 접속해서 [Choose File]을 선택하여 이미지를 지정하고 [Send]를 선택하여 Classification을 요청합니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/221360058-4f57732e-8b51-4ae1-aa35-0c04dddb2ac7.png)
 
