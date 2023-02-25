@@ -4,14 +4,15 @@
   <title>Image Classification</title>
     <script type="application/javascript">
         function sendFile(file) {
-            const uri = "https://d1twzjcpb87z2n.cloudfront.net/upload";
+            const uri = "https://d1twzjcpb87z2n.cloudfront.net/classifier";
             const xhr = new XMLHttpRequest();
 
             xhr.open("POST", uri, true);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     result.value = xhr.responseText;
-                    alert(xhr.responseText); // handle response.
+                    console.log('result: ', xhr.responseText);
+                    // alert(xhr.responseText); 
                 }
             };
 
@@ -22,11 +23,10 @@
         window.onload = () => {
             var form = document.forms.myform;
             form.elements.button.onclick = function(){
-                var file = form.elements.filename.files[0];
+                var file = form.elements.filename.files[0];                
                 if(file){
-                    sendFile(file);
-
                     previewImg.src = URL.createObjectURL(file)
+                    sendFile(file);                    
                 }else{
                     alert("Not file.");
                 }
@@ -41,10 +41,12 @@
         <form id="myform">
             <input type="file" name="filename">
             <input type="button" name="button" value="Send">
+            <h4>Result: 
+            <input type="text" id="result" name="result"></h4>
         </form>
     </div>
-    <input type="text" id="result" name="result">
+    
     <img id="previewImg" width="600" alt="Preview}" />
-    <h4>A MP3 file will be generated from your picture and then delivered to your email address.</h4>
+    <h4>The uploaded picture will be classfiered by RESNET-50.</h4>
 </body>
 </html>
