@@ -26,7 +26,7 @@ def classifier(data):
 def run(event, context):
     print('event: ', event)
 
-    data = base64.b64decode(event['body-json'])
+    data = base64.b64decode(event['body'])
     label = classifier(data)
     print("label: "+ label)
        
