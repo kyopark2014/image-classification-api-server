@@ -32,5 +32,5 @@ def run(event, context):
        
     return {
         "statusCode": 200,
-        "label": str(label)
+        "body": str(label)
     }  
