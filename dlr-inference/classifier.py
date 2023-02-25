@@ -3,6 +3,7 @@ import numpy as np
 import traceback
 import inference
 import base64
+import json
 
 def classifier(data):
     # convert string of image data to uint8
@@ -31,6 +32,9 @@ def run(event, context):
     print("label: "+ label)
        
     return {
-        "statusCode": 200,
-        "body": str(label)
+        'statusCode': 200,
+        'headers': {
+            'Content-Type': 'application/json',
+        },
+        'body': json.dumps(label)
     }  
