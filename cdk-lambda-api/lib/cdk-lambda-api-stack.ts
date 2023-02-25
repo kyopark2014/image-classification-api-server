@@ -8,6 +8,7 @@ import * as logs from "aws-cdk-lib/aws-logs";
 import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment";
 
 const debug = false;
 
@@ -18,7 +19,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
     const stage = "dev";
 
     // S3 
-  /*  const s3Bucket = new s3.Bucket(this, "storage",{
+    const s3Bucket = new s3.Bucket(this, "storage",{
       // bucketName: bucketName,
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -41,6 +42,12 @@ export class CdkLambdaApiStack extends cdk.Stack {
       });
     }
 
+    // copy web application files into s3 bucket
+    new s3Deploy.BucketDeployment(this, "upload-HTM", {
+      sources: [s3Deploy.Source.asset("../html")],
+      destinationBucket: s3Bucket,
+    });
+
     // CloudFront
     const distribution = new cloudFront.Distribution(this, 'cloudfront', {
       defaultBehavior: {
@@ -56,7 +63,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
         value: distribution.domainName,
         description: 'The domain name of the Distribution',
       });
-    } */
+    } 
 
     // Create Lambda for image classification
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-api", {
@@ -139,5 +146,22 @@ export class CdkLambdaApiStack extends cdk.Stack {
       value: api.url+resourceName,
       description: 'The url of API Gateway',
     });  
+
+    // cloudfront setting for api gateway    
+    distribution.addBehavior("/upload", new origins.RestApiOrigin(api), {
+      cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+      allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
+      viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+    });    
+
+    new cdk.CfnOutput(this, 'UploadUrl', {
+      value: 'https://'+distribution.domainName+'/classifier.html',
+      description: 'The url of file upload',
+    });
+
+    new cdk.CfnOutput(this, 'UpdateCommend', {
+      value: 'aws s3 cp ./html/classifier.html '+'s3://'+s3Bucket.bucketName,
+      description: 'commend to upload the html',
+    });      
   }
 }
