@@ -148,15 +148,15 @@ export class CdkLambdaApiStack extends cdk.Stack {
     });  
 
     // cloudfront setting for api gateway    
-    distribution.addBehavior("/upload", new origins.RestApiOrigin(api), {
+    distribution.addBehavior("/classifier", new origins.RestApiOrigin(api), {
       cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
       allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,  
       viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
     });    
 
-    new cdk.CfnOutput(this, 'UploadUrl', {
+    new cdk.CfnOutput(this, 'ClassifierUrl', {
       value: 'https://'+distribution.domainName+'/classifier.html',
-      description: 'The url of file upload',
+      description: 'The url of file classifier',
     });
 
     new cdk.CfnOutput(this, 'UpdateCommend', {
