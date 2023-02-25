@@ -4,7 +4,7 @@ RESNET-50를 사용하는 AWS의 [DLR(Deep Learning Runtime)](https://docs.aws.a
 
 전체적인 Architecture는 아래와 같습니다. 이미지 분류를 사용하는 Client는 RESTful API로 syncronous하게 이미지를 분류할 수 있습니다. API요청시 API Gateway의 address를 Endpoint로 이용합니다. 이때 API 이름으로 "/classifier"를 이용하면 API Gateway와 연결된 Lambda로 요청이 event의 형태로 인입되어서, 이미지 분류를 위한 추론이 수행됩니다. Lambda는 Container로 배포되는데 이미지 추론에는 DLR Model을 사용합니다. Lambda Function URL이 아닌 API Gateway를 사용하는것은 외부에서 public하게 open되는 케이스를 고려하기 위함입니다. Lambda 및 API Gateway의 배포시에 AWS CDK와 ECR을 이용합니다. 
 
-![image](https://user-images.githubusercontent.com/52392004/211182721-dda19b7e-47b6-4b41-909d-212041f67907.png)
+![image](https://user-images.githubusercontent.com/52392004/221357663-c4e1ba1d-b45f-411f-81a4-9b688feac83b.png)
 
 
 ## Image Classification
