@@ -31,6 +31,6 @@ def run(event, context):
     print("label: "+ label)
        
     return {
-        'statusCode': 200,
-        'label': label
+        "statusCode": 200,
+        "label": str(label)
     }  
