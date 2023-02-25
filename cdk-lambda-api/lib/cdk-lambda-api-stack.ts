@@ -97,10 +97,10 @@ export class CdkLambdaApiStack extends cdk.Stack {
     logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
     // api Gateway    
-    const api = new apiGateway.RestApi(this, 'image-classification-api-server', {
+  /*  const api = new apiGateway.RestApi(this, 'image-classification-api-server', {
       description: 'API Gateway for image classification',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['*/*'], 
+      binaryMediaTypes: ['image/*'], 
       deployOptions: {
         stageName: stage,
         
@@ -114,7 +114,9 @@ export class CdkLambdaApiStack extends cdk.Stack {
       },
     });   
     
-    const classifier = api.root.addResource('classifier');
+    // POST method
+    const resourceName = "classifier";
+    const classifier = api.root.addResource(resourceName);
     classifier.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
       credentialsRole: role,
@@ -134,8 +136,8 @@ export class CdkLambdaApiStack extends cdk.Stack {
     }); 
 
     new cdk.CfnOutput(this, 'ApiGatewayUrl', {
-      value: api.url+'upload',
+      value: api.url+resourceName,
       description: 'The url of API Gateway',
-    });  
+    });  */
   }
 }
