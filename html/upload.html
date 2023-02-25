@@ -1,0 +1,48 @@
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Classification</title>
+    <script type="application/javascript">
+        function sendFile(file) {
+            const uri = "https://d1kpgkk8y8p43t.cloudfront.net/upload";
+            const xhr = new XMLHttpRequest();
+
+            xhr.open("POST", uri, true);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    alert(xhr.responseText); // handle response.
+                }
+            };
+
+            var blob = new Blob([file], {type: 'image/jpeg'});
+            xhr.send(blob);
+        }
+
+        window.onload = () => {
+            var form = document.forms.myform;
+            form.elements.button.onclick = function(){
+                var file = form.elements.filename.files[0];
+                if(file){
+                    sendFile(file);
+
+                    previewImg.src = URL.createObjectURL(file)
+                }else{
+                    alert("Not file.");
+                }
+            };
+        }
+    </script>
+</head>
+<body>
+    <h1>Story Time</h1>
+    <h4>Upload the picture about your book</h4>
+    <div>
+        <form id="myform">
+            <input type="file" name="filename">
+            <input type="button" name="button" value="Send">
+        </form>
+    </div>
+    <img id="previewImg" width="600" alt="Preview}" />
+    <h4>A MP3 file will be generated from your picture and then delivered to your email address.</h4>
+</body>
+</html>

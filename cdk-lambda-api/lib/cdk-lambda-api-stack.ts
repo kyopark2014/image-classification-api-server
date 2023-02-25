@@ -5,12 +5,58 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as apiGateway from "aws-cdk-lib/aws-apigateway";
 import * as logs from "aws-cdk-lib/aws-logs";
+import * as cloudFront from 'aws-cdk-lib/aws-cloudfront';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+
+const debug = false;
 
 export class CdkLambdaApiStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     const stage = "dev";
+
+    // S3 
+  /*  const s3Bucket = new s3.Bucket(this, "storage",{
+      // bucketName: bucketName,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
+      publicReadAccess: false,
+      versioned: false,
+    });
+    if(debug) {      
+      new cdk.CfnOutput(this, 'bucketName', {
+        value: s3Bucket.bucketName,
+        description: 'The nmae of bucket',
+      });
+      new cdk.CfnOutput(this, 's3Arn', {
+        value: s3Bucket.bucketArn,
+        description: 'The arn of s3',
+      });
+      new cdk.CfnOutput(this, 's3Path', {
+        value: 's3://'+s3Bucket.bucketName,
+        description: 'The path of s3',
+      });
+    }
+
+    // CloudFront
+    const distribution = new cloudFront.Distribution(this, 'cloudfront', {
+      defaultBehavior: {
+        origin: new origins.S3Origin(s3Bucket),
+        allowedMethods: cloudFront.AllowedMethods.ALLOW_ALL,
+        cachePolicy: cloudFront.CachePolicy.CACHING_DISABLED,
+        viewerProtocolPolicy: cloudFront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+      },
+      priceClass: cloudFront.PriceClass.PRICE_CLASS_200,  
+    });
+    if(debug) {      
+      new cdk.CfnOutput(this, 'distributionDomainName', {
+        value: distribution.domainName,
+        description: 'The domain name of the Distribution',
+      });
+    } */
 
     // Create Lambda for image classification
     const mlLambda = new lambda.DockerImageFunction(this, "lambda-api", {
@@ -28,96 +74,57 @@ export class CdkLambdaApiStack extends cdk.Stack {
       version,
     });
 
-    // api Gateway
+    mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
+
+    // role
+    const role = new iam.Role(this, "ApiRole-Classification", {
+      roleName: "api-role-classification",
+      assumedBy: new iam.ServicePrincipal("apigateway.amazonaws.com")
+    });
+    role.addToPolicy(new iam.PolicyStatement({
+      resources: ['*'],
+      actions: ['lambda:InvokeFunction']
+    }));
+    role.addManagedPolicy({
+      managedPolicyArn: 'arn:aws:iam::aws:policy/AWSLambdaExecute',
+    }); 
+
+    // access log
     const logGroup = new logs.LogGroup(this, 'AccessLogs', {
-      retention: 90, // Keep logs for 90 days
+      logGroupName: `/aws/api-gateway/accesslog-storytime`, 
+      retention: logs.RetentionDays.ONE_WEEK,
+      removalPolicy: cdk.RemovalPolicy.DESTROY
     });
     logGroup.grantWrite(new iam.ServicePrincipal('apigateway.amazonaws.com')); 
 
+    // api Gateway    
     const api = new apiGateway.RestApi(this, 'image-classification-api-server', {
       description: 'API Gateway for image classification',
       endpointTypes: [apiGateway.EndpointType.REGIONAL],
-      binaryMediaTypes: ['*/*'],
+      binaryMediaTypes: ['*/*'], 
       deployOptions: {
         stageName: stage,
-        accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),
-        accessLogFormat: apiGateway.AccessLogFormat.jsonWithStandardFields({
-          caller: false,
-          httpMethod: true,
-          ip: true,
-          protocol: true,
-          requestTime: true,
-          resourcePath: true,
-          responseLength: true,
-          status: true,
-          user: true
-        }),
+        
+        // logging for debug
+        loggingLevel: apiGateway.MethodLoggingLevel.INFO, 
+        dataTraceEnabled: true,
+
+        // trace access log
+        accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),    
+        accessLogFormat: apiGateway.AccessLogFormat.jsonWithStandardFields()  
       },
       // proxy: false
     });   
-
-    mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
-
-    const templateString: string = `##  See http://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
-    ##  This template will pass through all parameters including path, querystring, header, stage variables, and context through to the integration endpoint via the body/payload
-    #set($allParams = $input.params())
-    {
-    "body-json" : $input.json('$'),
-    "params" : {
-    #foreach($type in $allParams.keySet())
-        #set($params = $allParams.get($type))
-    "$type" : {
-        #foreach($paramName in $params.keySet())
-        "$paramName" : "$util.escapeJavaScript($params.get($paramName))"
-            #if($foreach.hasNext),#end
-        #end
-    }
-        #if($foreach.hasNext),#end
-    #end
-    },
-    "stage-variables" : {
-    #foreach($key in $stageVariables.keySet())
-    "$key" : "$util.escapeJavaScript($stageVariables.get($key))"
-        #if($foreach.hasNext),#end
-    #end
-    },
-    "context" : {
-        "account-id" : "$context.identity.accountId",
-        "api-id" : "$context.apiId",
-        "api-key" : "$context.identity.apiKey",
-        "authorizer-principal-id" : "$context.authorizer.principalId",
-        "caller" : "$context.identity.caller",
-        "cognito-authentication-provider" : "$context.identity.cognitoAuthenticationProvider",
-        "cognito-authentication-type" : "$context.identity.cognitoAuthenticationType",
-        "cognito-identity-id" : "$context.identity.cognitoIdentityId",
-        "cognito-identity-pool-id" : "$context.identity.cognitoIdentityPoolId",
-        "http-method" : "$context.httpMethod",
-        "stage" : "$context.stage",
-        "source-ip" : "$context.identity.sourceIp",
-        "user" : "$context.identity.user",
-        "user-agent" : "$context.identity.userAgent",
-        "user-arn" : "$context.identity.userArn",
-        "request-id" : "$context.requestId",
-        "resource-id" : "$context.resourceId",
-        "resource-path" : "$context.resourcePath"
-        }
-    }`    
-    const requestTemplates = { // path through
-      "image/jpeg": templateString,
-      "image/jpg": templateString,
-      "application/octet-stream": templateString,
-      "image/png" : templateString
-    }
     
     const upload = api.root.addResource('classifier');
     upload.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
-      requestTemplates: requestTemplates,
+      credentialsRole: role,
       integrationResponses: [{
         statusCode: '200',
       }], 
-      proxy:false, 
+      proxy:true, 
     }), {
       methodResponses: [   // API Gateway sends to the client that called a method.
         {
@@ -129,9 +136,9 @@ export class CdkLambdaApiStack extends cdk.Stack {
       ]
     }); 
 
-    new cdk.CfnOutput(this, 'apiUrl', {
-      value: api.url,
+    new cdk.CfnOutput(this, 'ApiGatewayUrl', {
+      value: api.url+'upload',
       description: 'The url of API Gateway',
-    });    
+    });  
   }
 }
