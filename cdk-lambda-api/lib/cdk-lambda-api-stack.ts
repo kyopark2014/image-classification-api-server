@@ -66,6 +66,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
       code: lambda.DockerImageCode.fromImageAsset(path.join(__dirname, '../../dlr-inference')),
       timeout: cdk.Duration.seconds(30),
     }); 
+    mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
     // version
     const version = mlLambda.currentVersion;
@@ -73,8 +74,6 @@ export class CdkLambdaApiStack extends cdk.Stack {
       aliasName: stage,
       version,
     });
-
-    mlLambda.grantInvoke(new iam.ServicePrincipal('apigateway.amazonaws.com'));
 
     // role
     const role = new iam.Role(this, "ApiRole-Classification", {
@@ -91,7 +90,7 @@ export class CdkLambdaApiStack extends cdk.Stack {
 
     // access log
     const logGroup = new logs.LogGroup(this, 'AccessLogs', {
-      logGroupName: `/aws/api-gateway/accesslog-storytime`, 
+      logGroupName: `/aws/api-gateway/accesslog-image-classifier`, 
       retention: logs.RetentionDays.ONE_WEEK,
       removalPolicy: cdk.RemovalPolicy.DESTROY
     });
@@ -113,12 +112,10 @@ export class CdkLambdaApiStack extends cdk.Stack {
         accessLogDestination: new apiGateway.LogGroupLogDestination(logGroup),    
         accessLogFormat: apiGateway.AccessLogFormat.jsonWithStandardFields()  
       },
-      // proxy: false
     });   
     
-    const upload = api.root.addResource('classifier');
-    upload.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
-      // PassthroughBehavior: apiGateway.PassthroughBehavior.NEVER,
+    const classifier = api.root.addResource('classifier');
+    classifier.addMethod('POST', new apiGateway.LambdaIntegration(mlLambda, {
       passthroughBehavior: apiGateway.PassthroughBehavior.WHEN_NO_TEMPLATES,
       credentialsRole: role,
       integrationResponses: [{
