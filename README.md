@@ -56,17 +56,31 @@ COPY . .
 CMD ["classifier.run"]
 ```
 
-## Result
-
+## 배포
 
 인프라 설치는 아래와 같이 수행합니다.
 
 ```java
 git clone https://github.com/kyopark2014/image-classification-api-server
-cd cdk-lambda-api
-npm install aws-cdk-lib
+cd cdk-lambda-api && npm install aws-cdk-lib@2.64.0 path 
 cdk deploy
 ```
+
+배포후 아래와 같은 값을 얻습니다.
+
+![image](https://user-images.githubusercontent.com/52392004/221360112-bdb0e611-9971-4443-ac41-33ceefe8bee6.png)
+
+여기서 ApiGatewayUrl의 주소는 "https://f8wr4q0nlj.execute-api.ap-northeast-2.amazonaws.com/dev/classifier"와 같고 Web으로 접속할 주소는 " ttps://d1twzjcpb87z2n.cloudfront.net/classifier.html
+CdkLambdaApiStack.UpdateCommend = aws s3 cp ./html/classifier.html s3://cdklambdaapistack-storage8d9329be-1pn0nfyzd384i
+CdkLambdaApiStack.imageclassificationapiserverEndpoint327C29FB = https://f8wr4q0nlj.execute-api.ap-northeast-2.amazonaws.com/dev/
+Stack ARN:
+
+### Web에서 시험하기
+
+![image](https://user-images.githubusercontent.com/52392004/221360058-4f57732e-8b51-4ae1-aa35-0c04dddb2ac7.png)
+
+
+### Postman으로 시험하기 
 
 Postman을 이용해 테스트시에 아래와 같이 수행합니다.
 
