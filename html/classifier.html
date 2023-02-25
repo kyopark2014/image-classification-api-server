@@ -4,12 +4,13 @@
   <title>Image Classification</title>
     <script type="application/javascript">
         function sendFile(file) {
-            const uri = "https://d1kpgkk8y8p43t.cloudfront.net/upload";
+            const uri = "https://d1twzjcpb87z2n.cloudfront.net/upload";
             const xhr = new XMLHttpRequest();
 
             xhr.open("POST", uri, true);
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    result.value = xhr.responseText;
                     alert(xhr.responseText); // handle response.
                 }
             };
@@ -34,14 +35,15 @@
     </script>
 </head>
 <body>
-    <h1>Story Time</h1>
-    <h4>Upload the picture about your book</h4>
+    <h1>Image Classification</h1>
+    <h4>Upload the picture to classifier</h4>
     <div>
         <form id="myform">
             <input type="file" name="filename">
             <input type="button" name="button" value="Send">
         </form>
     </div>
+    <input type="text" id="result" name="result">
     <img id="previewImg" width="600" alt="Preview}" />
     <h4>A MP3 file will be generated from your picture and then delivered to your email address.</h4>
 </body>
